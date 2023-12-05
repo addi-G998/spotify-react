@@ -7,17 +7,7 @@ import { FaMoon } from "react-icons/fa";
 import axios from "axios";
 
 const App = () => {
-  const carousel = [
-    {
-      url: "https://rtleng.rosselcdn.net/sites/default/files/dpistyles_v2/rtl_16_9_749w/2022/10/03/node_444726/1190510/public/2022/10/03/12362128.jpg",
-    },
-    {
-      url: "https://www.udiscovermusic.com/wp-content/uploads/2019/10/Snoop-Dogg-GettyImages-1604471-1000x600.jpg",
-    },
-    {
-      url: "https://images.squarespace-cdn.com/content/v1/56e1a8a4e707eb89cec850ea/1520550636109-LWV1Y5BARXT4QXDPY36K/Young+Snoop+Dogg+and+Dr+Dre+by+celebrity+photographer+Michael+Benabib.jpg",
-    },
-  ];
+  
   const CLIENT_ID = "2b0506fcd957495b98053debb0b0e184";
   const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -29,6 +19,7 @@ const App = () => {
   const [searchKey, setSearchKey] = useState("");
   const [tracks, setTracks] = useState([[]]);
   const [song, setSong] = useState("");
+  const [trackImage, setTrackImage] = useState([]);
   const brightness = darkMode ? "bg-black/90" : "bg-white";
   const textBrightness = darkMode ? "text-white" : "text-black";
 
@@ -39,10 +30,10 @@ const App = () => {
     setDarkmode(false);
   };
   const nextImg = () => {
-    setindex(index < carousel.length - 1 ? index + 1 : 0);
+    setindex(index < trackImage.length - 1 ? index + 1 : 0);
   };
   const prevImg = () => {
-    setindex(index > 0 ? index - 1 : carousel.length - 1);
+    setindex(index > 0 ? index - 1 : trackImage.length - 1);
   };
   const logout = () => {
     setToken("");
@@ -73,10 +64,12 @@ const App = () => {
         className={`${textBrightness} cursor-pointer border-2 border-white`}
         onClick={() => {
           setSong(track.id);
+          setTrackImage(track.album.images);
+          console.log(track.name);
         }}
         key={track.id}
       >
-        {track.name > 0 ? track.name + "/  " : "Such nach einem Song /"}
+        {track.name ? track.name + "/  " : "Such nach einem Song "}
         {track.artists &&
         track.artists.length > 0 &&
         track.artists[0].hasOwnProperty("name")
@@ -121,7 +114,7 @@ const App = () => {
           <div className="mt-15 relative w-full max-w-[600px] px-4 py-16">
             <div className="w-full max-w-full overflow-hidden rounded-xl">
               <img
-                src={carousel[index].url} //carousel[index].url
+                src={trackImage && trackImage[index] ? trackImage[index].url : ''} //carousel[index].url
                 alt="carousel"
                 className="h-auto w-full object-cover duration-500"
                 style={{ aspectRatio: "16/9" }} // Optional: Set a fixed aspect ratio for images
