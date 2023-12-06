@@ -8,7 +8,7 @@ import axios from "axios";
 
 const App = () => {
   
-  const CLIENT_ID = "2b0506fcd957495b98053debb0b0e184";
+  const CLIENT_ID = "";
   const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
