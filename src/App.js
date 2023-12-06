@@ -8,18 +8,18 @@ import axios from "axios";
 
 const App = () => {
   
-  const CLIENT_ID = "";
+  const CLIENT_ID = "";                                             //Enter your Data here once you created your Spotify App
   const REDIRECT_URI = "http://addi-G998.github.io/spotify-react";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
-  const [index, setindex] = useState(0);
+  const [index, setindex] = useState(0);                            //Index for the image carousel
   const [darkMode, setDarkmode] = useState(false);
-  const [token, setToken] = useState("");
-  const [searchKey, setSearchKey] = useState("");
-  const [tracks, setTracks] = useState([[]]);
-  const [song, setSong] = useState("");
-  const [trackImage, setTrackImage] = useState([]);
+  const [token, setToken] = useState("");                          //sign in token for the spotify API
+  const [searchKey, setSearchKey] = useState("");                 //setSearchKey takes the input of the searchbar
+  const [tracks, setTracks] = useState([[]]);                     //saves all related songs of the searchKey into an array to later display  
+  const [song, setSong] = useState("");                           //saves the spotify song id of the song you want to play
+  const [trackImage, setTrackImage] = useState([]);               //image array for the carousel
   const brightness = darkMode ? "bg-black/90" : "bg-white";
   const textBrightness = darkMode ? "text-white" : "text-black";
 
@@ -35,12 +35,12 @@ const App = () => {
   const prevImg = () => {
     setindex(index > 0 ? index - 1 : trackImage.length - 1);
   };
-  const logout = () => {
+  const logout = () => {                                          //remove sign in token
     setToken("");
     window.localStorage.removeItem("token");
   };
-  const searchArtist = async (e) => {
-    e.preventDefault();
+  const searchArtist = async (e) => {                             //async search for song or artist
+    e.preventDefault();                                           //prevent page from reloading when searching for song
     if (!searchKey) {
       console.log("No search key provided");
       return;
@@ -50,22 +50,21 @@ const App = () => {
         Authorization: `Bearer ${token}`,
       },
       params: {
-        q: searchKey,
-        type: "track",
+        q: searchKey,                                             //our search query 
+        type: "track",                                            //search for tracks only currently
       },
     });
     setTracks(data.tracks.items);
-    console.log(data);
+    
   };
 
-  const songResults = () => {
+  const songResults = () => {                                                     //return div containing the searched songs
     return tracks.map((track) => (
       <div
         className={`${textBrightness} cursor-pointer border-2 border-white`}
         onClick={() => {
-          setSong(track.id);
+          setSong(track.id);                                                      //set the track id to later play the song
           setTrackImage(track.album.images);
-          console.log(track.name);
         }}
         key={track.id}
       >
@@ -79,10 +78,10 @@ const App = () => {
     ));
   };
   useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+    const hash = window.location.hash;                                      //get the part of the URL that follows the # symbol, including the # symbol
+    let token = window.localStorage.getItem("token");                       // retrieve token from website local storage
 
-    if (!token && hash) {
+    if (!token && hash) {                                                   //checks if token is not present and hash is present, resulting in the token to be saved in the local storage
       token = hash
         .substring(1)
         .split("&")
@@ -114,10 +113,10 @@ const App = () => {
           <div className="mt-15 relative w-full max-w-[600px] px-4 py-16">
             <div className="w-full max-w-full overflow-hidden rounded-xl">
               <img
-                src={trackImage && trackImage[index] ? trackImage[index].url : ''} //carousel[index].url
+                src={trackImage && trackImage[index] ? trackImage[index].url : ''} 
                 alt="carousel"
                 className="h-auto w-full object-cover duration-500"
-                style={{ aspectRatio: "16/9" }} // Optional: Set a fixed aspect ratio for images
+                style={{ aspectRatio: "16/9" }} 
               />
             </div>
             <div className="absolute left-5 top-[40%] -translate-y-[-50%] cursor-pointer rounded-full bg-black/20 p-2 text-2xl text-white">
@@ -131,7 +130,7 @@ const App = () => {
             {!token ? (
               <a
                 className="relative left-[75%] text-2xl text-blue-500 "
-                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`} //your authentication token
               >
                 Login to Spotify
               </a>
@@ -171,7 +170,7 @@ const App = () => {
         <div className="w-full max-w-[600px] px-4 py-16">
           <iframe
             className="h-[352px] w-[100%] rounded-lg"
-            src={`https://open.spotify.com/embed/track/${song}?utm_source=generator`}
+            src={`https://open.spotify.com/embed/track/${song}?utm_source=generator`}             //use embeded spotify player with modifiable song id
             allowfullscreen=""
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
