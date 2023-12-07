@@ -11,10 +11,15 @@ Due to complexity i'm not gonna explain how to connect to the API.
 
 This is what it's going to look like
 
-`<iframe
+         <iframe
             className="h-[352px] w-[100%] rounded-lg"
-            src={`https://open.spotify.com/embed/track/${song}?utm_source=generator`}             //use embeded spotify player with modifiable song id
+            src={`https://open.spotify.com/embed/track/${song}?utm_source=generator`} 
             allowfullscreen=""
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
-          ></iframe>`
+          ></iframe>
+          
+You can easily Achieve this by using Spotify's Embed function and modifying the ID.
+Note that you will NEED a Spotify Account to have the Songs run completely instead of a Preview
+
+One problem that resides still and which Spotify still refuses to implement is audio manipulation.
