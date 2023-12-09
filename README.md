@@ -23,3 +23,5 @@ You can easily Achieve this by using Spotify's Embed function and modifying the 
 Note that you will NEED a Spotify Account to have the Songs run completely instead of a Preview
 
 One problem that resides still and which Spotify still refuses to implement is audio manipulation.
+
+I will be implementing a chatting funktion in near future as well, which will be usable to everyone
