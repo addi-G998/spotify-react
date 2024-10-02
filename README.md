@@ -1,9 +1,7 @@
 # spotify-react
 You want to play music from spotify on your website, but don't want to build the actual player? Worry not
 
-Check out my GH-Pages https://addi-g998.github.io/spotify-react/# (Since the API is currently in Developer mode only a few selected people can actually use the music feature)
-
-Due to complexity i'm not gonna explain how to connect to the API.
+Check out my GH-Pages https://addi-g998.github.io/spotify-react/# (Since the API is currently in Developer mode only a few selected people can actually listen to full length songs)
 
 
 
@@ -24,4 +22,4 @@ Note that you will NEED a Spotify Account to have the Songs run completely inste
 
 One problem that resides still and which Spotify still refuses to implement is audio manipulation.
 
-I will be implementing a chatting funktion in near future as well, which will be usable to everyone
+I will be implementing a chatting function in near future as well, which will be usable to everyone
